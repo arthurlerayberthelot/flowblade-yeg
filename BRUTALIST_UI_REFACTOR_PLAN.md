@@ -6,13 +6,13 @@ Flowblade's UI is a standard GTK3 dark theme with rounded corners, gradients, tr
 
 ## Target Aesthetic
 
-- **Black and white only.** No color accents except functional status indicators (error red, active green).
 - **Zero border-radius.** Everything is a rectangle.
 - **Zero decorative borders.** Borders only where they separate functional regions.
 - **Minimal padding/margin.** Content fills space. No breathing room for aesthetics.
 - **No shadows, no gradients, no transparency.** Flat. Solid. Done.
 - **No hover glow, no transition animations.** State changes are instant and binary.
 - **Maximum information density.** Every pixel earns its keep.
+- **Modern, neat font.**
 
 ---
 
@@ -40,46 +40,7 @@ Flowblade's UI is a standard GTK3 dark theme with rounded corners, gradients, tr
 
 ## Execution Plan
 
-### Phase 1: Color System (1-2 days)
-
-**Files:** `_colors.scss`, `_colors-public.scss`
-
-Replace all color variables:
-
-```scss
-$base_color: #000000;
-$bg_color: #0a0a0a;
-$fg_color: #ffffff;
-$text_color: #ffffff;
-$darkest_color: #000000;
-$selected_bg_color: #ffffff;
-$selected_fg_color: #000000;
-$borders_color: #333333;
-$header_bg: #0a0a0a;
-$dark_sidebar_bg: #0a0a0a;
-$dark_sidebar_fg: #ffffff;
-$osd_bg_color: #000000;
-$osd_fg_color: #ffffff;
-$panel_bg: #000000;
-$panel_fg: #ffffff;
-$button_bg: #1a1a1a;
-$entry_bg: #000000;
-$entry_border: #333333;
-
-// Status colors — keep functional, desaturate
-$warning_color: #ffffff;
-$error_color: #ff0000;
-$success_color: #ffffff;
-$destructive_color: #ff0000;
-$suggested_color: #ffffff;
-
-// Kill WM button colors
-$wm_button_close_bg: #1a1a1a;
-$wm_button_close_hover_bg: #333333;
-$wm_button_close_active_bg: #ff0000;
-```
-
-Recompile SASS to CSS. Immediate global effect.
+### Phase 1: Change font
 
 ### Phase 2: Kill Decoration (1 day)
 
