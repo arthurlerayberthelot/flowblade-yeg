@@ -50,7 +50,7 @@ def get_media_files_panel(media_list_view, add_cb, del_cb, col_changed_cb, hambu
 
     hamburger_launcher = guicomponents.HamburgerPressLaunch(hamburger_launch_pressed)
     hamburger_launcher.do_popover_callback = True
-    guiutils.set_margins(hamburger_launcher.widget, 2, 0, 4, 12)
+    guiutils.set_margins(hamburger_launcher.widget, 1, 0, 2, 2)
 
     columns_img = guiutils.get_cairo_image("columns")
     columns_launcher = guicomponents.PressLaunchPopover(col_changed_cb, columns_img, w=22, h=22)
@@ -81,7 +81,7 @@ def get_media_files_panel(media_list_view, add_cb, del_cb, col_changed_cb, hambu
     buttons_box.pack_start(Gtk.Label(), True, True, 0)
     buttons_box.pack_start(bin_info, False, False, 0)
     buttons_box.set_name("darker-bg-widget")
-    guiutils.set_margins(buttons_box, 0, 6, 4, 6)
+    guiutils.set_margins(buttons_box, 0, 2, 2, 2)
     
     buttons_box_wrapper = Gtk.HBox(False,1)
     buttons_box_wrapper.pack_start(buttons_box, False, False, 0)

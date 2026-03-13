@@ -58,11 +58,11 @@ TC_HEIGHT = 27
         
 MATCH_FRAME = "match_frame.png"
 
-MONITOR_INDICATOR_COLOR = utils.get_cairo_color_tuple_255_rgb(71, 131, 169)
-MONITOR_INDICATOR_COLOR_MATCH = utils.get_cairo_color_tuple_255_rgb(21, 71, 105)
+MONITOR_INDICATOR_COLOR = (0.6, 0.6, 0.6)
+MONITOR_INDICATOR_COLOR_MATCH = (0.35, 0.35, 0.35)
 
-FRAME_MATCH_VIEW_COLOR = (0.3, 0.3, 0.3)
-FILL_COLOR = (0.15, 0.15, 0.15)
+FRAME_MATCH_VIEW_COLOR = (0.15, 0.15, 0.15)
+FILL_COLOR = (0.06, 0.06, 0.06)
 
 # Continuous match frame update
 CONTINUOS_UPDATE_PAUSE = 0.2
