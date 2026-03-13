@@ -14,7 +14,8 @@
   outline-offset: -3px;
   outline-width: 1px;
   -gtk-outline-radius: 0;
-  font-family: "Inter", "IBM Plex Sans", "Cantarell", "Noto Sans", sans-serif;
+  font-family: "Source Sans 3", "Source Sans Pro", "Inter", "Noto Sans", sans-serif;
+  font-size: 10px;
   border-radius: 0;
   box-shadow: none;
   text-shadow: none;
