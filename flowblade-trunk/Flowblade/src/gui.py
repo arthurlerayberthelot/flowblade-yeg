@@ -78,9 +78,9 @@ tline_cursor_manager = None
 
 # Theme colors
 # Theme colors are given as 4 RGB tuples and string, ((LIGHT_BG), (DARK_BG), (SELECTED_BG), (DARK_SELECTED_BG), name)
-_FLOWBLADE_COLORS = ((0.960784, 0.964706, 0.968627), (0.266667, 0.282353, 0.321569), (0.065, 0.342, 0.66), (0.065, 0.342, 0.66), "Flowblade Theme")
+_FLOWBLADE_COLORS = ((1.0, 1.0, 1.0), (0.04, 0.04, 0.04), (1.0, 1.0, 1.0), (1.0, 1.0, 1.0), "Brutalist")
 
-MID_NEUTRAL_THEME_NEUTRAL= ((54.0/255.0), (54.0/255.0), (54.0/255.0), 1.0)
+MID_NEUTRAL_THEME_NEUTRAL = (0.1, 0.1, 0.1, 1.0)
 
 _selected_bg_color = None
 _bg_color = None

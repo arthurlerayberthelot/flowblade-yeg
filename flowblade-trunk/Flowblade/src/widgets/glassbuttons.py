@@ -27,22 +27,14 @@ import gui
 import guiutils
 import respaths
 
-BUTTONS_GRAD_STOPS = [   (1, 1, 1, 1, 0.2),
-                        (0.8, 1, 1, 1, 0),
-                        (0.51, 1, 1, 1, 0),
-                        (0.50, 1, 1, 1, 0.25),
-                        (0, 1, 1, 1, 0.4)]
+BUTTONS_GRAD_STOPS = []
+BUTTONS_PRESSED_GRAD_STOPS = []
+LINE_GRAD_STOPS = []
+BUTTON_NOT_SENSITIVE_GRAD_STOPS = []
 
-BUTTONS_PRESSED_GRAD_STOPS = [(1, 0.7, 0.7, 0.7, 1),
-                             (0, 0.5, 0.5, 0.5, 1)]
-
-LINE_GRAD_STOPS = [ (1, 0.66, 0.66, 0.66, 1),
-                            (0.95, 0.7, 0.7, 0.7, 1),
-                            (0.65, 0.3, 0.3, 0.3, 1),
-                            (0, 0.64, 0.64, 0.64, 1)]
-
-BUTTON_NOT_SENSITIVE_GRAD_STOPS = [(1, 0.9, 0.9, 0.9, 0.7),
-                                    (0, 0.9, 0.9, 0.9, 0.7)]
+FLAT_BG_COLOR = (0.08, 0.08, 0.08)
+FLAT_PRESSED_COLOR = (0.25, 0.25, 0.25)
+FLAT_SEPARATOR_COLOR = (0.2, 0.2, 0.2)
 
 CORNER_DIVIDER = 5
 
@@ -164,7 +156,6 @@ class AbstractGlassButtons:
         return NO_HIT
 
     def _draw_buttons(self, cr, w, h):
-        # Width of buttons group
         buttons_width = self.button_width * len(self.icons)
 
         if self.no_decorations == True:
@@ -176,98 +167,34 @@ class AbstractGlassButtons:
                 cr.set_source_surface(icon, x + self.image_x[i], self.image_y[i])
                 cr.paint()
                 x += self.button_width
-
             return
 
-        # Line width for all strokes
         cr.set_line_width(1.0)
 
-        # bg
-        self._set_button_draw_consts(self.button_x + 0.5, self.button_y + 0.5, buttons_width, self.button_height + 1.0)
-        self._round_rect_path(cr)
-        r, g, b, a  = gui.get_bg_color()
-        if self.draw_button_gradients:
-            if self.glass_style == True:
-                cr.set_source_rgb(0.75, 0.75, 0.75)
-                cr.fill_preserve()
-            else:
-                grad = cairo.LinearGradient (self.button_x, self.button_y, self.button_x, self.button_y + self.button_height)
-                if self.dark_theme == False:
-                    grad.add_color_stop_rgba(1, r - 0.1, g - 0.1, b - 0.1, 1)
-                    grad.add_color_stop_rgba(0, r + 0.1, g + 0.1, b + 0.1, 1)
-                else:
-                    grad.add_color_stop_rgba(1, r + 0.04, g + 0.04, b + 0.04, 1)
-                    grad.add_color_stop_rgba(0, r + 0.07, g + 0.07, b + 0.07, 1)
+        # Flat background rectangle
+        cr.set_source_rgb(*FLAT_BG_COLOR)
+        cr.rectangle(self.button_x, self.button_y, buttons_width, self.button_height)
+        cr.fill()
 
-                cr.set_source(grad)
-                cr.fill_preserve()
-
-        # Pressed button gradient
+        # Pressed button highlight — flat, inverted
         if self.pressed_button > -1:
-            if self.draw_button_gradients:
-                grad = cairo.LinearGradient (self.button_x, self.button_y, self.button_x, self.button_y + self.button_height)
-                if self.glass_style == True:
-                    for stop in BUTTONS_PRESSED_GRAD_STOPS:
-                        grad.add_color_stop_rgba(*stop)
-                else:
-                    grad = cairo.LinearGradient (self.button_x, self.button_y, self.button_x, self.button_y + self.button_height)
-                    grad.add_color_stop_rgba(1, r - 0.3, g - 0.3, b - 0.3, 1)
-                    grad.add_color_stop_rgba(0, r - 0.1, g - 0.1, b - 0.1, 1)
-            else:
-                    grad = cairo.LinearGradient (self.button_x, self.button_y, self.button_x, self.button_y + self.button_height)
-                    grad.add_color_stop_rgba(1, r - 0.3, g - 0.3, b - 0.3, 1)
-                    grad.add_color_stop_rgba(0, r - 0.3, g - 0.3, b - 0.3, 1)
-            cr.save()
-            cr.set_source(grad)
-            cr.clip()
+            cr.set_source_rgb(*FLAT_PRESSED_COLOR)
             cr.rectangle(self.button_x + self.pressed_button * self.button_width, self.button_y, self.button_width, self.button_height)
             cr.fill()
-            cr.restore()
 
-        # Icons and sensitive gradient
-        grad = cairo.LinearGradient (self.button_x, self.button_y, self.button_x, self.button_y + self.button_height)
-        for stop in BUTTON_NOT_SENSITIVE_GRAD_STOPS:
-            grad.add_color_stop_rgba(*stop)
+        # Icons
         x = self.button_x
         for i in range(0, len(self.icons)):
             icon = self.icons[i]
             cr.set_source_surface(icon, x + self.image_x[i], self.image_y[i])
-            cr.paint()
             if self.sensitive[i] == False:
-                cr.save()
-                self._round_rect_path(cr)
-                cr.set_source(grad)
-                cr.clip()
-                cr.rectangle(x, self.button_y, self.button_width, self.button_height)
-                cr.fill()
-                cr.restore()
+                cr.paint_with_alpha(0.3)
+            else:
+                cr.paint()
             x += self.button_width
 
-        if self.glass_style == True and self.draw_button_gradients:
-            # Glass gradient
-            self._round_rect_path(cr)
-            grad = cairo.LinearGradient (self.button_x, self.button_y, self.button_x, self.button_y + self.button_height)
-            for stop in BUTTONS_GRAD_STOPS:
-                grad.add_color_stop_rgba(*stop)
-            cr.set_source(grad)
-            cr.fill()
-        else:
-            pass
-
-        if self.dark_theme != True:
-            # Round line
-            grad = cairo.LinearGradient (self.button_x, self.button_y, self.button_x, self.button_y + self.button_height)
-            for stop in LINE_GRAD_STOPS:
-                grad.add_color_stop_rgba(*stop)
-            cr.set_source(grad)
-            self._set_button_draw_consts(self.button_x + 0.5, self.button_y + 0.5, buttons_width, self.button_height)
-            self._round_rect_path(cr)
-            cr.stroke()
-
-        if self.dark_theme == True:
-            cr.set_source_rgb(0,0,0)
-
-        # Vert lines
+        # Vertical separators — 1px lines
+        cr.set_source_rgb(*FLAT_SEPARATOR_COLOR)
         x = self.button_x
         for i in range(0, len(self.icons)):
             if (i > 0) and (i < len(self.icons)):

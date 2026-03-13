@@ -208,7 +208,7 @@ class EditorWindow:
         self.app_h_box.pack_start(self.right_column_frame, False, False, 0)
         
         # Menu box
-        self.menubar.set_margin_bottom(4)
+        self.menubar.set_margin_bottom(1)
         self.menubar.set_name("lighter-bg-widget")
 
         menubar_box = Gtk.HBox(False, 0)
@@ -227,7 +227,7 @@ class EditorWindow:
 
         layout_widgets = [self.tools_buttons.widget, guiutils.pad_label(24,2), self.fullscreen_press.widget, guiutils.pad_label(6,2), self.layout_press.widget]
         layout_controls_box = guiutils.get_right_justified_box(layout_widgets)
-        layout_controls_box.set_margin_right(6)
+        layout_controls_box.set_margin_right(2)
 
         if editorstate.SCREEN_WIDTH > 1550:
             menu_vbox = Gtk.HBox(True, 0)
@@ -305,20 +305,20 @@ class EditorWindow:
 
         else:
             self.mm_paned = gtkbuilder.HPaned()
-            guiutils.set_margins(self.bins_panel, 6, 6, 8, 0)
+            guiutils.set_margins(self.bins_panel, 2, 2, 2, 0)
             self.mm_paned.pack1(self.bins_panel, resize=True, shrink=True)
             self.mm_paned.pack2(media_panel, resize=True, shrink=False)
 
         # Effects edit panel
         info_row = clipeffectseditor.get_clip_effects_editor_info_row()    
-        effects_editor_panel = guiutils.set_margins(clipeffectseditor.widgets.value_edit_frame, 4, 0, 4, 0)
+        effects_editor_panel = guiutils.set_margins(clipeffectseditor.widgets.value_edit_frame, 1, 0, 2, 0)
         effects_vbox = Gtk.VBox()
         effects_vbox.pack_start(effects_editor_panel, True, True, 0)
         effects_vbox.pack_start(info_row, False, False, 0)
 
 
         if not(editorstate.SCREEN_HEIGHT < 1023):
-            self.effects_panel = guiutils.set_margins(effects_vbox, 8, 0, 7, 2)
+            self.effects_panel = guiutils.set_margins(effects_vbox, 2, 0, 2, 1)
         else:
             self.effects_panel = effects_vbox
 
@@ -333,7 +333,7 @@ class EditorWindow:
 
         # Compositors panel
         action_row = compositeeditor.get_compositor_clip_panel()
-        compositor_editor_panel = guiutils.set_margins(compositeeditor.widgets.value_edit_frame, 0, 0, 4, 0)
+        compositor_editor_panel = guiutils.set_margins(compositeeditor.widgets.value_edit_frame, 0, 0, 2, 0)
 
         compositors_hbox = Gtk.HBox()
         compositors_hbox.pack_start(compositor_editor_panel, True, True, 0)
@@ -342,12 +342,12 @@ class EditorWindow:
         compositors_vbox.pack_start(compositors_hbox, True, True, 0)
         compositors_vbox.pack_start(action_row, False, False, 0)
 
-        compositors_panel = guiutils.set_margins(compositors_vbox, 2, 2, 2, 2)
+        compositors_panel = guiutils.set_margins(compositors_vbox, 1, 1, 1, 1)
 
         # Media Plugins
         hamburger_row = mediaplugin.get_plugin_hamburger_row()
-        buttons_row = guiutils.set_margins(mediaplugin.get_plugin_buttons_row(),4, 4, 4, 4)
-        mediaplugins_editor_panel = guiutils.set_margins(mediaplugin.widgets.value_edit_frame, 0, 0, 8, 4)
+        buttons_row = guiutils.set_margins(mediaplugin.get_plugin_buttons_row(), 1, 1, 2, 2)
+        mediaplugins_editor_panel = guiutils.set_margins(mediaplugin.widgets.value_edit_frame, 0, 0, 2, 2)
         
         mediaplugins_hbox = Gtk.HBox()
         mediaplugins_hbox.pack_start(mediaplugins_editor_panel, True, True, 0)
@@ -357,7 +357,7 @@ class EditorWindow:
         mediaplugins_vbox.pack_start(buttons_row, False, False, 0)
         mediaplugins_vbox.pack_start(hamburger_row, False, False, 0)
 
-        mediaplugins_panel = guiutils.set_margins(mediaplugins_vbox, 2, 2, 2, 2)
+        mediaplugins_panel = guiutils.set_margins(mediaplugins_vbox, 1, 1, 1, 1)
 
         # Multi empty panel
         multi_empty_vbox = Gtk.VBox(False, 0)
@@ -405,9 +405,9 @@ class EditorWindow:
                                                                       lambda w,e: projectaction.add_to_render_queue())
                 render_hbox.pack_start(render_panel_right, True, True, 0)
                 
-                self.render_panel = guiutils.set_margins(render_hbox, 2, 6, 8, 6)
+                self.render_panel = guiutils.set_margins(render_hbox, 1, 2, 2, 2)
             else:
-                self.render_panel = guiutils.set_margins(render_panel_left, 2, 6, 8, 6)
+                self.render_panel = guiutils.set_margins(render_panel_left, 1, 2, 2, 2)
 
         # Range Log panel
         media_log_events_list_view = medialog.get_media_log_list_view()
@@ -416,7 +416,7 @@ class EditorWindow:
         media_log_vbox = Gtk.HBox()
         media_log_vbox.pack_start(events_panel, True, True, 0)
 
-        self.media_log_panel = guiutils.set_margins(media_log_vbox, 6, 6, 6, 6)
+        self.media_log_panel = guiutils.set_margins(media_log_vbox, 2, 2, 2, 2)
         self.media_log_events_list_view = media_log_events_list_view
 
         # Sequence list
@@ -430,7 +430,7 @@ class EditorWindow:
         jobs_panel = jobs.get_jobs_panel()
         jobs_hbox = Gtk.HBox()
         jobs_hbox.pack_start(jobs_panel, True, True, 0)
-        self.jobs_pane = guiutils.set_margins(jobs_hbox, 6, 6, 6, 6)
+        self.jobs_pane = guiutils.set_margins(jobs_hbox, 2, 2, 2, 2)
 
         # Project panel
         if editorlayout.top_level_project_panel() == True:
@@ -450,7 +450,7 @@ class EditorWindow:
             project_vbox = Gtk.VBox()
             project_vbox.pack_start(project_info_panel, False, True, 0)
             project_vbox.pack_start(seq_panel, True, True, 0)
-            self.project_panel = guiutils.set_margins(project_vbox, 0, 2, 6, 2)
+            self.project_panel = guiutils.set_margins(project_vbox, 0, 1, 2, 1)
             self.top_project_panel = None 
 
         # Middlebar
@@ -479,10 +479,10 @@ class EditorWindow:
         self.pos_bar = PositionBar()
         pos_bar_frame = Gtk.HBox()
         pos_bar_frame.add(self.pos_bar.widget)
-        pos_bar_frame.set_margin_top(2)
-        pos_bar_frame.set_margin_bottom(4)
-        pos_bar_frame.set_margin_start(4)
-        pos_bar_frame.set_margin_end(4)
+        pos_bar_frame.set_margin_top(1)
+        pos_bar_frame.set_margin_bottom(1)
+        pos_bar_frame.set_margin_start(2)
+        pos_bar_frame.set_margin_end(2)
 
         # Play buttons row
         self._create_monitor_buttons()
@@ -495,7 +495,7 @@ class EditorWindow:
             self.player_buttons.no_decorations = True
 
         self.view_mode_select = guicomponents.get_monitor_view_select_launcher(tlineaction.view_mode_menu_lauched)
-        self.view_mode_select.widget.set_margin_end(10)
+        self.view_mode_select.widget.set_margin_end(2)
         self.trim_view_select = guicomponents.get_trim_view_select_launcher(monitorevent.trim_view_menu_launched)
 
         callbacks = [monitorevent.mark_in_pressed,
@@ -504,7 +504,7 @@ class EditorWindow:
                      monitorevent.to_mark_in_pressed,
                      monitorevent.to_mark_out_pressed]
         markbuttons = glassbuttons.MarkButtons(callbacks)
-        markbuttons.widget.set_margin_right(12)
+        markbuttons.widget.set_margin_right(2)
         tooltip_runner = glassbuttons.TooltipRunner(markbuttons, None)
         mutabletooltips.add_widget(mutabletooltips.MARK_BUTTONS, markbuttons, tooltip_runner)
         
@@ -516,10 +516,10 @@ class EditorWindow:
         player_buttons_row.pack_start(markbuttons.widget, False, False, 0)
         player_buttons_row.pack_start(self.trim_view_select.widget, False, False, 0)
         player_buttons_row.pack_start(self.view_mode_select.widget, False, False, 0)
-        player_buttons_row.set_margin_top(7)
-        player_buttons_row.set_margin_bottom(6)
-        player_buttons_row.set_margin_left(12)
-        player_buttons_row.set_margin_right(12)
+        player_buttons_row.set_margin_top(2)
+        player_buttons_row.set_margin_bottom(2)
+        player_buttons_row.set_margin_left(2)
+        player_buttons_row.set_margin_right(2)
 
         # This is used in updater.py
         player_buttons_row.set_name("player-bar")

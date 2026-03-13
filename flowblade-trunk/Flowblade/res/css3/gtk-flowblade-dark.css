@@ -13,7 +13,13 @@
   outline-style: dashed;
   outline-offset: -3px;
   outline-width: 1px;
-  -gtk-outline-radius: 2px; }
+  -gtk-outline-radius: 0;
+  font-family: "Inter", "IBM Plex Sans", "Cantarell", "Noto Sans", sans-serif;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  -gtk-icon-shadow: none !important;
+  transition: none !important; }
 
 .background {
   color: #c1c1c1;
@@ -3480,5 +3486,116 @@ filechooser placessidebar.sidebar scrollbar,
 
 #no-pad {
   padding: 0px; }
+
+/* ============================================
+   BRUTALIST OVERRIDES — CSS-only widget rendering
+   ============================================ */
+
+/* Checkboxes: CSS-only, no PNG assets */
+.check, check, treeview.check,
+.osd check, filechooser actionbar check {
+  -gtk-icon-source: none !important;
+  background-image: none !important;
+  background-color: #0a0a0a !important;
+  border: 1px solid #555 !important;
+  border-radius: 0 !important;
+  min-width: 14px !important;
+  min-height: 14px !important; }
+
+.check:checked, check:checked, treeview.check:checked,
+.osd check:checked, filechooser actionbar check:checked {
+  -gtk-icon-source: none !important;
+  background-color: #ffffff !important;
+  border-color: #ffffff !important; }
+
+.check:disabled, check:disabled, treeview.check:disabled,
+.osd check:disabled, filechooser actionbar check:disabled {
+  -gtk-icon-source: none !important;
+  background-color: #0a0a0a !important;
+  border-color: #333 !important; }
+
+.check:checked:disabled, check:checked:disabled, treeview.check:checked:disabled {
+  -gtk-icon-source: none !important;
+  background-color: #666 !important;
+  border-color: #666 !important; }
+
+.check:indeterminate, check:indeterminate, treeview.check:indeterminate {
+  -gtk-icon-source: none !important;
+  background-color: #555 !important;
+  border-color: #555 !important; }
+
+/* Radio buttons: CSS-only, no PNG assets */
+.radio, radio, treeview.radio,
+.osd radio, filechooser actionbar radio {
+  -gtk-icon-source: none !important;
+  background-image: none !important;
+  background-color: #0a0a0a !important;
+  border: 1px solid #555 !important;
+  border-radius: 0 !important;
+  min-width: 14px !important;
+  min-height: 14px !important; }
+
+.radio:checked, radio:checked, treeview.radio:checked,
+.osd radio:checked, filechooser actionbar radio:checked {
+  -gtk-icon-source: none !important;
+  background-color: #ffffff !important;
+  border-color: #ffffff !important; }
+
+.radio:disabled, radio:disabled, treeview.radio:disabled {
+  -gtk-icon-source: none !important;
+  background-color: #0a0a0a !important;
+  border-color: #333 !important; }
+
+.radio:checked:disabled, radio:checked:disabled, treeview.radio:checked:disabled {
+  -gtk-icon-source: none !important;
+  background-color: #666 !important;
+  border-color: #666 !important; }
+
+/* Switches: CSS-only, no PNG assets */
+switch {
+  background-image: none !important;
+  background-color: #1a1a1a !important;
+  border: 1px solid #555 !important;
+  border-radius: 0 !important; }
+
+switch:checked {
+  background-image: none !important;
+  background-color: #ffffff !important;
+  border-color: #ffffff !important; }
+
+switch slider {
+  background-color: #555 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  min-width: 20px !important;
+  min-height: 20px !important; }
+
+switch:checked slider {
+  background-color: #000000 !important; }
+
+switch:disabled {
+  background-image: none !important;
+  background-color: #0a0a0a !important;
+  border-color: #333 !important; }
+
+/* Selected bg color override — remove blue accent */
+notebook > header.top > tabs > tab:checked,
+notebook > header.bottom > tabs > tab:checked,
+notebook > header.left > tabs > tab:checked,
+notebook > header.right > tabs > tab:checked {
+  box-shadow: inset 0 4px #ffffff !important; }
+
+/* Flatten all backgrounds */
+.background {
+  background-color: #0a0a0a !important; }
+
+.view, iconview, textview text {
+  background-color: #0a0a0a !important; }
+
+notebook > stack:not(:only-child) {
+  background-color: #0a0a0a !important; }
+
+notebook > header {
+  background-color: #0a0a0a !important; }
 
 /*# sourceMappingURL=gtk-flowblade-dark.css.map */
