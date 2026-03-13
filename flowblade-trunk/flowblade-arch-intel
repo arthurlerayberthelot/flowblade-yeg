@@ -1,0 +1,43 @@
+#!/bin/bash
+#
+# Flowblade launch wrapper optimized for Arch Linux + Intel iGPU
+# Target: Lenovo ThinkPad X270 (i5-7200U, Intel HD 620, 8GB RAM)
+#
+# Usage: ./flowblade-arch-intel [flowblade args...]
+#
+# This sets environment variables that squeeze better performance out of
+# Intel Kaby Lake integrated graphics before handing off to the main
+# Flowblade launcher.
+
+set -euo pipefail
+
+# --- VAAPI / Intel Media Driver ---
+# Force the iHD driver (intel-media-driver) over the older i965.
+# On Arch: pacman -S intel-media-driver libva-utils
+export LIBVA_DRIVER_NAME="${LIBVA_DRIVER_NAME:-iHD}"
+export LIBVA_DRIVERS_PATH="${LIBVA_DRIVERS_PATH:-/usr/lib/dri}"
+
+# --- Mesa / OpenGL ---
+# Disable vsync for compositor-less setups (reduces input lag in preview).
+export vblank_mode="${vblank_mode:-0}"
+# Thread-safe GL for GTK rendering.
+export mesa_glthread="${mesa_glthread:-true}"
+
+# --- MLT threading ---
+# Let MLT use real_time=-2 (2 threads, no frame drop) matching i5 physical cores.
+# This is also set in hardwareprofile.py but env override is useful for CLI renders.
+export MLT_CONSUMER_THREAD_COUNT="${MLT_CONSUMER_THREAD_COUNT:-2}"
+
+# --- Memory pressure ---
+# Hint to Python garbage collector: be more aggressive on constrained RAM.
+export PYTHONMALLOC="${PYTHONMALLOC:-malloc}"
+# Reduce Python GC threshold for tighter memory on 8GB systems.
+export PYTHONGC="${PYTHONGC:-1}"
+
+# --- FFmpeg / libav ---
+# Cap ffmpeg internal thread count to avoid over-subscription on 2C/4T.
+export FFMPEG_THREADS="${FFMPEG_THREADS:-2}"
+
+# --- Launch ---
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+exec "${SCRIPT_DIR}/flowblade" "$@"

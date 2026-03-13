@@ -35,6 +35,7 @@ import time
 import gui
 from editorstate import timeline_visible
 import editorpersistance
+import hardwareprofile
 import utilsgtk
 import updater
 
@@ -93,7 +94,7 @@ class Player:
             # SDL 1 consumer uses env param to communicate xid and 
             # that has already been set.
         self.consumer.set("real_time", 1)
-        self.consumer.set("rescale", "bicubic") # MLT options "nearest", "bilinear", "bicubic", "hyper"
+        self.consumer.set("rescale", hardwareprofile.get_playback_rescale()) # auto-tuned per hardware
         self.consumer.set("resize", 1)
         self.consumer.set("progressive", 1)
 

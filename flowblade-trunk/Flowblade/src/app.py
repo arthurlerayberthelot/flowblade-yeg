@@ -79,6 +79,7 @@ import gmic
 import gtkevents
 import gui
 import guicomponents
+import hardwareprofile
 import guipopoverclip
 import jobs
 import keyframeeditor
@@ -202,6 +203,11 @@ def main(root_path):
 
     # Load editor prefs and list of recent projects.
     editorpersistance.load()
+
+    # Detect hardware and apply optimized defaults for constrained systems.
+    hardwareprofile.print_hardware_summary()
+    if hardwareprofile.apply_profile_to_prefs(editorpersistance.prefs):
+        print("Hardware profile applied optimized defaults.")
 
     # Force custom theme. NOTE: See if possible to use Adwaita Dark after GTK 4 port.
     editorpersistance.prefs.theme = appconsts.FLOWBLADE_THEME_NEUTRAL
