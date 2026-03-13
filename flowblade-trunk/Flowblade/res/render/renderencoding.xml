@@ -131,6 +131,10 @@
     <encodingoption name="VAAPI H.264 / .mp4" extension="mp4" presetgroup="VAAPI" audiodesc=" aac" type="av" resize="True" qgroup="qgroup3">
         <profile args="f=mp4 acodec=aac ab=256k vcodec=h264_vaapi vf='format@#@#nv12,hwupload' vaapi_device=/dev/dri/renderD128 vb=%BITRATE%"/>
     </encodingoption>
+    <!-- VAAPI low-power: tuned for Intel HD 620 (ThinkPad X270 / Kaby Lake iGPU) -->
+    <encodingoption name="VAAPI H.264 Low Power / .mp4" extension="mp4" presetgroup="VAAPI" audiodesc=" aac" type="av" resize="True" qgroup="qgroup3">
+        <profile args="f=mp4 acodec=aac ab=128k vcodec=h264_vaapi vf='format@#@#nv12,hwupload' vaapi_device=/dev/dri/renderD128 low_power=1 vb=%BITRATE%"/>
+    </encodingoption>
 
     <!-- MPEG --> 
     <encodingoption name="MPEG-4 / .mp4" extension="mp4" presetgroup="MPEG" type="av" audiodesc=" mp2" resize="True" qgroup="qgroup1">
